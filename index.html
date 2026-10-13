@@ -91,6 +91,22 @@ p{margin:0}
 .total small{font-family:'IBM Plex Sans KR',sans-serif;font-size:18px;color:var(--fg)}
 .copyout{width:100%;min-height:200px;margin-top:12px;font:inherit;font-size:14px;line-height:1.6;color:var(--fg2);background:var(--bg);border:1px solid var(--line2);padding:12px;resize:vertical}
 .copied{font-size:14px;color:var(--accent);min-height:1.4em;margin-top:8px}
+/* portfolio */
+.pf-tabs{display:inline-flex;border:1px solid var(--line2);margin:4px 0 24px}
+.pf-tab{min-height:46px;min-width:130px;padding:0 22px;font:inherit;font-size:16px;font-weight:700;background:transparent;color:var(--mute);border:0;cursor:pointer}
+.pf-tab[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
+.pf-tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.pf-grid.single{grid-template-columns:minmax(0,1fr)}
+.pf-item{display:flex;flex-direction:column;gap:10px}
+.pf-media{position:relative;width:100%;aspect-ratio:16/9;background:var(--bg2);overflow:hidden}
+.pf-media iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.pf-play{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;cursor:pointer;background:#0B0C14 center/cover no-repeat}
+.pf-play::after{content:"";position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:rgba(16,18,28,.78) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7l9 5-9 5z' fill='%23ECEDF4'/%3E%3C/svg%3E") center/30px no-repeat;border:1px solid rgba(236,237,244,.35)}
+.pf-play:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pf-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:15px;border:1px dashed var(--line2)}
+.pf-title{font-weight:700;font-size:16px;line-height:1.4}
+.pf-sub{font-size:14px;color:var(--mute);margin-top:-6px}
 footer{padding:48px 64px 64px;display:flex;justify-content:space-between;align-items:center;gap:16px}
 @media (max-width:640px){
   body{font-size:16px}
@@ -99,7 +115,9 @@ footer{padding:48px 64px 64px;display:flex;justify-content:space-between;align-i
   .hero{padding-top:64px}
   h1{font-size:32px}
   h2{font-size:24px}
-  .grid2,.opts,.summary{grid-template-columns:minmax(0,1fr)}
+  .grid2,.opts,.summary,.pf-grid{grid-template-columns:minmax(0,1fr)}
+  .pf-tabs{display:flex}
+  .pf-tab{flex:1;min-width:0}
   .tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
   .card .price{font-size:28px}
   .info b{width:90px}
@@ -129,7 +147,16 @@ footer{padding:48px 64px 64px;display:flex;justify-content:space-between;align-i
   </div>
 </section>
 
-<!-- PORTFOLIO: 유튜브 링크가 준비되면 여기에 플레이어 섹션을 추가합니다 -->
+<section id="portfolio">
+  <p class="eyebrow">PORTFOLIO</p>
+  <h2>작업물</h2>
+  <div class="pf-tabs" role="tablist" aria-label="작업물 종류">
+    <button type="button" class="pf-tab" role="tab" data-pf="orig" aria-selected="true">오리지널곡</button>
+    <button type="button" class="pf-tab" role="tab" data-pf="bgm" aria-selected="false">BGM</button>
+  </div>
+  <div class="pf-grid" data-pf-grid></div>
+  <p class="lead" style="margin-top:24px;font-size:16px">여기에 담지 못한 곡이 더 많습니다. 원하시는 장르를 알려주시면 딱 맞는 샘플로 들려드릴게요.</p>
+</section>
 
 <section>
   <p class="eyebrow">ORIGINAL SONG</p>
@@ -334,6 +361,65 @@ footer{padding:48px 64px 64px;display:flex;justify-content:space-between;align-i
 </div>
 
 <script>
+(function(){
+  // ===== 작업물: 유튜브 주소를 youtube 칸에 넣으면 플레이어가 생깁니다 =====
+  // 비워두면 "준비 중" 칸으로 보이고, 줄을 지우면 칸이 사라집니다.
+  var PORTFOLIO = {
+    orig: [
+      { title: 'ハートチャージ１００％', sub: 'Feat. HEENA · J-POP, KAWAII POP', youtube: 'https://youtu.be/XYqeW2e-yQ8' },
+      { title: '홍잠', sub: 'Feat. HEENA · K-POP', youtube: 'https://youtu.be/Rq8HzvNt5L8' },
+      { title: '고동', sub: 'Feat. HEENA, SAKI, KAILRI · J-POP, J-ROCK', youtube: 'https://youtu.be/weV2dYgRcFU' },
+      { title: 'U.N.I.Q.U.E', sub: 'Feat. 유니, 하츠네 미쿠 · J-POP', youtube: 'https://youtu.be/7z20UC2gpu8' },
+      { title: 'My concerto', sub: 'Feat. HEENA · J-POP', youtube: 'https://youtu.be/yz7-pPY4edU' },
+      { title: '녹차는 살 안쪄!', sub: 'Feat. SAKI, HEENA · J-POP, KAWAII POP', youtube: 'https://youtu.be/0_mrdNXsRO0' }
+    ],
+    bgm: [
+      { title: 'Learn from the Front', sub: 'CCC 2026 · COROS · 희망, 차분 · 다큐멘터리', youtube: 'https://youtu.be/rxCN5vF_ZFA' }
+    ]
+  };
+  // ==========================================================================
+
+  function ytId(u){
+    if (!u) return '';
+    var m = String(u).match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
+    return m ? m[1] : (/^[A-Za-z0-9_-]{11}$/.test(u) ? u : '');
+  }
+  var grid = document.querySelector('[data-pf-grid]');
+  function show(kind){
+    document.querySelectorAll('.pf-tab').forEach(function(t){ t.setAttribute('aria-selected', String(t.dataset.pf === kind)); });
+    grid.innerHTML = '';
+    grid.classList.toggle('single', PORTFOLIO[kind].length === 1);
+    PORTFOLIO[kind].forEach(function(item){
+      var wrap = document.createElement('div'); wrap.className = 'pf-item';
+      var media = document.createElement('div'); media.className = 'pf-media';
+      var id = ytId(item.youtube);
+      if (id){
+        var btn = document.createElement('button');
+        btn.type = 'button'; btn.className = 'pf-play';
+        btn.style.backgroundImage = 'url(https://i.ytimg.com/vi/' + id + '/hqdefault.jpg)';
+        btn.setAttribute('aria-label', item.title + ' 재생');
+        btn.addEventListener('click', function(){
+          var f = document.createElement('iframe');
+          f.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
+          f.title = item.title;
+          f.allow = 'autoplay; encrypted-media; picture-in-picture';
+          f.allowFullscreen = true;
+          media.innerHTML = ''; media.appendChild(f);
+        });
+        media.appendChild(btn);
+      } else {
+        var e = document.createElement('div'); e.className = 'pf-empty'; e.textContent = '샘플 준비 중'; media.appendChild(e);
+      }
+      var t = document.createElement('div'); t.className = 'pf-title'; t.textContent = item.title;
+      var s = document.createElement('div'); s.className = 'pf-sub'; s.textContent = item.sub;
+      wrap.appendChild(media); wrap.appendChild(t); wrap.appendChild(s);
+      grid.appendChild(wrap);
+    });
+  }
+  document.querySelectorAll('.pf-tab').forEach(function(t){ t.addEventListener('click', function(){ show(t.dataset.pf); }); });
+  show('orig');
+})();
+
 (function(){
   // ===== 가격은 여기서만 바꾸면 계산기에 전부 반영됩니다 =====
   var PRODUCTS = {
