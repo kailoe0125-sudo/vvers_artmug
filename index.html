@@ -47,6 +47,22 @@ p{margin:0}
 .chips span{border:1px solid var(--line2);padding:7px 14px;font-size:15px}
 .event{background:var(--bg3)}
 .event .card{background:var(--bg);border:0}
+.ev-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.ev-head h2{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.dday{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;padding:3px 12px;border-radius:999px;border:1px solid rgba(154,140,255,.55);color:var(--accent)}
+.seats{display:flex;align-items:center;gap:12px;padding:12px 20px;border-radius:999px;background:var(--bg);border:1px solid rgba(154,140,255,.4)}
+.seats-label{font-size:14px;color:var(--fg2)}
+.seats-num{font-family:'Space Grotesk',sans-serif;font-size:17px;color:var(--mute)}
+.seats-num b{font-size:24px;color:var(--fg);animation:breathe 2.8s ease-in-out infinite}
+.pulse{position:relative;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.pulse::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px solid var(--accent);animation:ring 2.8s ease-out infinite}
+@keyframes ring{0%{transform:scale(.4);opacity:.9}80%,100%{transform:scale(1.6);opacity:0}}
+@keyframes breathe{0%,100%{opacity:1;text-shadow:0 0 0 rgba(154,140,255,0)}50%{opacity:.72;text-shadow:0 0 18px rgba(154,140,255,.6)}}
+.seats.closed{border-color:var(--line2)}
+.seats.closed .pulse{background:var(--dim)}
+.seats.closed .pulse::after,.seats.closed b{animation:none}
+@media (prefers-reduced-motion: reduce){.seats-num b,.pulse::after{animation:none}}
+@media (max-width:640px){.seats{width:100%;justify-content:center}}
 .strike{color:var(--dim);text-decoration:line-through;font-size:18px}
 /* process */
 .steps{display:flex;flex-direction:column;gap:14px}
@@ -142,9 +158,18 @@ footer{padding:48px 64px 64px;display:flex;justify-content:space-between;align-i
 </header>
 
 <section class="event">
-  <p class="eyebrow">OPEN EVENT</p>
-  <h2>오픈 기념 선착순 3팀 특별가</h2>
-  <p class="lead" style="margin-bottom:24px">작업 완료 후 이용 후기를 남겨주시는 조건으로 진행됩니다. 방송용 상품에 한해 적용됩니다.</p>
+  <div class="ev-head">
+    <div>
+      <p class="eyebrow">OPEN EVENT</p>
+      <h2>오픈 기념 선착순 3팀 특별가 <span class="dday" data-dday>D-48</span></h2>
+    </div>
+    <div class="seats" data-seats-box>
+      <span class="pulse" aria-hidden="true"></span>
+      <span class="seats-label">남은 자리</span>
+      <span class="seats-num"><b data-seats-left>3</b> / <span data-seats-total>3</span></span>
+    </div>
+  </div>
+  <p class="lead" style="margin-bottom:24px">2026년 11월 30일까지 진행됩니다. 작업 완료 후 이용 후기를 남겨주시는 조건이며, 방송용 상품에 한해 적용됩니다.</p>
   <div class="grid2">
     <div class="card"><div class="muted" style="font-size:15px">오리지널곡 · 방송용</div><div class="strike">600,000원</div><div class="price">480,000<small>원</small></div></div>
     <div class="card"><div class="muted" style="font-size:15px">BGM 2~3분 · 방송용</div><div class="strike">250,000원</div><div class="price">200,000<small>원</small></div></div>
@@ -608,6 +633,33 @@ footer{padding:48px 64px 64px;display:flex;justify-content:space-between;align-i
   });
 
   render();
+})();
+</script>
+<script>
+(function(){
+  // ===== 오픈 특가 남은 자리: promo.json 한 파일만 고치면 X 페이지와 아트머그에 함께 반영됩니다 =====
+  var PROMO_URL = 'https://kailoe0125-sudo.github.io/vvers_kr/promo.json';
+  var DEF = { seats_left: 3, seats_total: 3, event_end: '2026-11-30T23:59:59+09:00' };
+  function applyPromo(c){
+    var end = new Date(c.event_end).getTime(), now = Date.now();
+    var left = Math.max(0, Math.ceil((end - now) / 86400000));
+    var seats = Math.max(0, Number(c.seats_left) || 0);
+    var over = now > end || seats <= 0;
+    var dText = now > end ? '종료' : (left <= 1 ? 'D-DAY' : 'D-' + (left - 1));
+    document.querySelectorAll('[data-dday]').forEach(function(e){ e.textContent = dText; });
+    document.querySelectorAll('[data-seats-left]').forEach(function(e){ e.textContent = seats; });
+    document.querySelectorAll('[data-seats-total]').forEach(function(e){ e.textContent = c.seats_total; });
+    document.querySelectorAll('[data-seats-box]').forEach(function(b){ b.classList.toggle('closed', over); var l = b.querySelector('.seats-label'); if (l) l.textContent = over ? '오픈 특가 마감' : '남은 자리'; });
+    var ev = document.querySelector('[data-group="license"] [data-val="ev"]');
+    if (ev && over){ ev.disabled = true; var s = ev.querySelector('.s'); if (s) s.textContent = '오픈 특가가 마감되었습니다'; }
+  }
+  applyPromo(DEF);
+  if (window.fetch){
+    fetch(PROMO_URL + '?t=' + Date.now(), { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(c){ if (c) applyPromo({ seats_left: c.seats_left, seats_total: c.seats_total || DEF.seats_total, event_end: c.event_end || DEF.event_end }); })
+      .catch(function(){});
+  }
 })();
 </script>
 </body>
