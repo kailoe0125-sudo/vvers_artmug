@@ -6,7 +6,7 @@
 <title>V_VERS | 오리지널곡 · BGM · 커버곡 어레인지 제작</title>
 <meta property="og:type" content="website">
 <meta property="og:title" content="V_VERS | 캐릭터와 세계관을 음악으로 완성합니다">
-<meta property="og:description" content="오리지널곡 · BGM · 게임 사운드트랙 · 커버곡 어레인지 제작. 오픈 특가 11월 30일까지 선착순 3팀.">
+<meta property="og:description" content="오리지널곡 · BGM · 게임 사운드트랙 · 커버곡 어레인지 제작.">
 <meta property="og:url" content="https://kailoe0125-sudo.github.io/vvers_artmug/">
 <meta property="og:image" content="https://kailoe0125-sudo.github.io/vvers_artmug/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -122,7 +122,7 @@ p{margin:0}
 .pf-tab[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
 .pf-tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .pf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-.pf-grid.single{grid-template-columns:minmax(0,1fr)}
+.pf-grid.single{grid-template-columns:minmax(0,560px)}
 .pf-item{display:flex;flex-direction:column;gap:10px}
 .pf-media{position:relative;width:100%;aspect-ratio:16/9;background:var(--bg2);overflow:hidden}
 .pf-media iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
@@ -232,31 +232,13 @@ footer a,a.plain{color:var(--fg2)}
   <p class="note">Producer Kailoe · Co-Producer Wheely Jung</p>
 </header>
 
-<section class="event">
-  <div class="ev-head">
-    <div>
-      <p class="eyebrow">OPEN EVENT</p>
-      <h2>오픈 기념 선착순 3팀 특별가 <span class="dday" data-dday>D-48</span></h2>
-    </div>
-    <div class="seats" data-seats-box>
-      <span class="pulse" aria-hidden="true"></span>
-      <span class="seats-label">남은 자리</span>
-      <span class="seats-num"><b data-seats-left>1</b> / <span data-seats-total>3</span></span>
-    </div>
-  </div>
-  <p class="lead" style="margin-bottom:24px">2026년 11월 30일까지 진행됩니다. 작업 완료 후 이용 후기를 남겨주시는 조건이며, 방송용 상품에 한해 적용됩니다.</p>
-  <div class="grid2">
-    <div class="card"><div class="muted" style="font-size:15px">오리지널곡 · 방송용</div><div class="strike">600,000원</div><div class="price">480,000<small>원</small></div></div>
-    <div class="card"><div class="muted" style="font-size:15px">BGM 2~3분 · 방송용</div><div class="strike">250,000원</div><div class="price">200,000<small>원</small></div></div>
-  </div>
-</section>
-
 <section id="portfolio">
   <p class="eyebrow">PORTFOLIO</p>
   <h2>작업물</h2>
   <div class="pf-tabs" role="tablist" aria-label="작업물 종류">
     <button type="button" class="pf-tab" role="tab" data-pf="orig" aria-selected="true">오리지널곡</button>
     <button type="button" class="pf-tab" role="tab" data-pf="bgm" aria-selected="false">BGM</button>
+    <button type="button" class="pf-tab" role="tab" data-pf="cover" aria-selected="false">커버곡 어레인지</button>
   </div>
   <div class="pf-grid" data-pf-grid></div>
   <p class="lead" style="margin-top:24px;font-size:16px">여기에 담지 못한 곡이 더 많습니다. 원하시는 장르를 알려주시면 딱 맞는 샘플로 들려드릴게요.</p>
@@ -330,7 +312,7 @@ footer a,a.plain{color:var(--fg2)}
   <div class="note" style="margin-top:16px;display:flex;flex-direction:column;gap:4px">
     <div>· 기본 작업 기간은 2주이며, 리얼 세션을 추가하면 최대 2주, 외부 스튜디오 믹싱을 추가하면 최대 5주가 더 걸립니다. (둘 다 추가해도 최대 5주)</div>
     <div>· 커버곡 어레인지는 외부 스튜디오 믹싱을 선택할 수 없으며, 리얼 세션은 밴드 · 풀 편성에만 적용됩니다.</div>
-    <div>· 빠른 마감은 리얼 세션 · 외부 스튜디오 믹싱 · 오픈 이벤트와 함께 선택할 수 없습니다.</div>
+    <div>· 빠른 마감은 리얼 세션 · 외부 스튜디오 믹싱과 함께 선택할 수 없습니다.</div>
     <div>· 납품 파일: WAV (48kHz / 24bit) + MP3</div>
   </div>
 </section>
@@ -387,7 +369,6 @@ footer a,a.plain{color:var(--fg2)}
       <div class="opts" data-group="license">
         <button type="button" class="opt" data-val="bc" aria-pressed="false"><span class="t">방송용</span><span class="s">방송 · 유튜브 · 쇼츠 · PV</span><span class="p" data-price="bc"></span></button>
         <button type="button" class="opt" data-val="cm" aria-pressed="false"><span class="t">상업용</span><span class="s">음원 발매 · 기업 · 광고 · 게임 · 독점</span><span class="p" data-price="cm"></span></button>
-        <button type="button" class="opt" data-val="ev" aria-pressed="false"><span class="t">오픈 이벤트 (방송용)</span><span class="s">선착순 3팀 · 후기 작성 조건</span><span class="p" data-price="ev"></span></button>
       </div>
     </div>
     <div class="group">
@@ -483,6 +464,9 @@ footer a,a.plain{color:var(--fg2)}
       { title: 'Erotomania', sub: '한국애니메이션고 24기 졸업작품 · BGM', youtube: 'https://youtu.be/t6BLTOmiIDg' },
       { title: 'Witch Parade', sub: '할로윈 BGM · 오케스트라', youtube: '', audio: 'https://kailoe0125-sudo.github.io/vvers_kr/audio/witch-parade.mp3', peaks: '24,30,31,30,30,38,38,42,44,46,36,46,36,48,55,56,57,49,48,45,64,54,53,50,64,78,80,87,89,84,84,86,93,86,64,46,54,54,67,60,35,80,96,100,94,87,91,100,68,57,48,32,62,31,37,12' },
       { title: 'Noir Waltz', sub: '느와르 · 피아노, 첼로 · 왈츠', youtube: '', audio: 'https://kailoe0125-sudo.github.io/vvers_kr/audio/noir-waltz.mp3', peaks: '64,64,72,84,74,83,84,74,74,80,78,88,93,83,86,89,83,81,85,81,82,74,72,87,82,81,89,90,94,100,94,60,88,83,84,86,88,79,78,85,77,79,85,80,85,82,76,81,86,84,92,23,14,13,12,12' }
+    ],
+    cover: [
+      { title: '僕のこと (Cover)', sub: '원곡 Mrs. GREEN APPLE · Feat. SAKI · 피아노 + 오케스트라 편곡', youtube: '', audio: 'https://kailoe0125-sudo.github.io/vvers_kr/audio/cover-boku-no-koto.mp3', peaks: '70,85,79,90,84,88,94,86,83,66,93,86,98,87,98,95,89,84,74,80,75,82,88,91,86,94,89,87,91,89,96,94,90,91,100,94,87,88,76,90,93,62,66,61,78,78,70,79,80,77,81,73,66,29,15,12' }
     ]
   };
   // ==========================================================================
@@ -740,33 +724,6 @@ footer a,a.plain{color:var(--fg2)}
   });
 
   render();
-})();
-</script>
-<script>
-(function(){
-  // ===== 오픈 특가 남은 자리: promo.json 한 파일만 고치면 X 페이지와 아트머그에 함께 반영됩니다 =====
-  var PROMO_URL = 'https://kailoe0125-sudo.github.io/vvers_kr/promo.json';
-  var DEF = { seats_left: 1, seats_total: 3, event_end: '2026-11-30T23:59:59+09:00' };
-  function applyPromo(c){
-    var end = new Date(c.event_end).getTime(), now = Date.now();
-    var left = Math.max(0, Math.ceil((end - now) / 86400000));
-    var seats = Math.max(0, Number(c.seats_left) || 0);
-    var over = now > end || seats <= 0;
-    var dText = now > end ? '종료' : (left <= 1 ? 'D-DAY' : 'D-' + (left - 1));
-    document.querySelectorAll('[data-dday]').forEach(function(e){ e.textContent = dText; });
-    document.querySelectorAll('[data-seats-left]').forEach(function(e){ e.textContent = seats; });
-    document.querySelectorAll('[data-seats-total]').forEach(function(e){ e.textContent = c.seats_total; });
-    document.querySelectorAll('[data-seats-box]').forEach(function(b){ b.classList.toggle('closed', over); var l = b.querySelector('.seats-label'); if (l) l.textContent = over ? '오픈 특가 마감' : '남은 자리'; });
-    var ev = document.querySelector('[data-group="license"] [data-val="ev"]');
-    if (ev && over){ ev.disabled = true; var s = ev.querySelector('.s'); if (s) s.textContent = '오픈 특가가 마감되었습니다'; }
-  }
-  applyPromo(DEF);
-  if (window.fetch){
-    fetch(PROMO_URL + '?t=' + Date.now(), { cache: 'no-store' })
-      .then(function(r){ return r.ok ? r.json() : null; })
-      .then(function(c){ if (c) applyPromo({ seats_left: c.seats_left, seats_total: c.seats_total || DEF.seats_total, event_end: c.event_end || DEF.event_end }); })
-      .catch(function(){});
-  }
 })();
 </script>
 </body>
